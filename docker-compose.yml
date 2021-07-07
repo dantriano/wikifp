@@ -1,0 +1,52 @@
+version: '3'
+services:
+  #PHP Service
+  app:
+    image: requarks/wiki:2.5
+    container_name: wikijs
+    restart: unless-stopped
+    #command: bash /scripts/init.sh
+    #entrypoint: bash /scripts/init.sh
+    tty: true
+    environment:
+      DB_TYPE : postgres
+      DB_HOST : db
+      DB_PORT : ${SQL_PORT}
+      DB_USER : ${SQL_USER}
+      DB_PASS : ${SQL_PASS}
+      DB_NAME : ${SQL_DB}
+    volumes:
+      - ${DOCKER_PATH}/wikijs/init.sh:/scripts/init.sh
+    ports:
+      - 3333:${WIKI_PORT}
+    #expose:
+     # - ${WIKI_PORT}
+    networks:
+      - app-network
+    depends_on:
+      - db
+
+  #MySQL Service
+  db:
+    image: postgres:13.3
+    container_name: db_wikijs
+    restart: unless-stopped
+    ports:
+      - ${SQL_PORT}
+    environment:
+      POSTGRES_USER: ${SQL_USER}
+      POSTGRES_PASSWORD: ${SQL_PASS}
+      POSTGRES_DB: ${SQL_DB}
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    networks:
+      - app-network
+      
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
+#Volumes
+volumes:
+  dbdata:
+    driver: local
