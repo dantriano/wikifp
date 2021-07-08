@@ -9,6 +9,8 @@ services:
     #entrypoint: bash /scripts/init.sh
     tty: true
     environment:
+      PUID : ${PUID}
+      PGID : ${PGID}
       DB_TYPE : postgres
       DB_HOST : ${SQL_LOCAL}
       DB_PORT : ${SQL_PORT}
@@ -17,7 +19,8 @@ services:
       DB_NAME : ${SQL_DB}
     volumes:
       - ${DOCKER_PATH}/init.sh:/scripts/init.sh
-      - ${DATA_PATH}:/wiki/data
+      - ${DATA_PATH}/data:/wiki/data
+      - ${DATA_PATH}/config:/wiki/config
     ports:
       - 80:${WIKI_PORT}
     #expose:
