@@ -10,7 +10,7 @@ services:
     tty: true
     environment:
       DB_TYPE : postgres
-      DB_HOST : db
+      DB_HOST : ${SQL_URL}
       DB_PORT : ${SQL_PORT}
       DB_USER : ${SQL_USER}
       DB_PASS : ${SQL_PASS}
