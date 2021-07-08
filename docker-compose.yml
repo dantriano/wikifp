@@ -10,7 +10,7 @@ services:
     tty: true
     environment:
       DB_TYPE : postgres
-      DB_HOST : ${SQL_URL}
+      DB_HOST : ${SQL_LOCAL}
       DB_PORT : ${SQL_PORT}
       DB_USER : ${SQL_USER}
       DB_PASS : ${SQL_PASS}
@@ -24,30 +24,9 @@ services:
      # - ${WIKI_PORT}
     networks:
       - app-network
-    depends_on:
-      - db
 
-  #MySQL Service
-  db:
-    image: postgres:13.3
-    container_name: db_wikijs
-    restart: unless-stopped
-    ports:
-      - ${SQL_PORT}:${SQL_PORT}
-    environment:
-      POSTGRES_USER: ${SQL_USER}
-      POSTGRES_PASSWORD: ${SQL_PASS}
-      POSTGRES_DB: ${SQL_DB}
-    volumes:
-      - dbdata:/var/lib/postgresql/data
-    networks:
-      - app-network
-  
 #Docker Networks
 networks:
   app-network:
     driver: bridge
-#Volumes
-volumes:
-  dbdata:
-    driver: local
+
