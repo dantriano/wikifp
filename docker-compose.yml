@@ -24,14 +24,14 @@ services:
       - 80:${WIKI_PORT}
     #expose:
      # - ${WIKI_PORT}
-    networks:
-      - app-network
+    #networks:
+     # - app-network
 
 #Docker Networks
 networks:
   default:
       external:
         name: nginx-proxy
-  app-network:
-    driver: bridge
+  #app-network:
+   # driver: bridge
 
