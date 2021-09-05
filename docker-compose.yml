@@ -9,6 +9,7 @@ services:
     #entrypoint: bash /scripts/init.sh
     tty: true
     environment:
+      VIRTUAL_HOST: wikifp.org
       DB_TYPE : postgres
       DB_HOST : ${SQL_URL}
       DB_PORT : ${SQL_PORT}
@@ -28,6 +29,9 @@ services:
 
 #Docker Networks
 networks:
+  default:
+      external:
+        name: nginx-proxy
   app-network:
     driver: bridge
 
