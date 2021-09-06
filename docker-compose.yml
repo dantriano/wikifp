@@ -20,10 +20,12 @@ services:
       - ${DOCKER_PATH}/init.sh:/scripts/init.sh
       - ${DATA_PATH}/data:/wiki/data
       - ${DATA_PATH}/config:/wiki/config
-    ports:
-      - 80:${WIKI_PORT}
-    #expose:
-     # - ${WIKI_PORT}
+#    ports:
+#      - 80:${WIKI_PORT}
+#      - 443:${WIKI_SPORT}
+    expose:
+      - ${WIKI_PORT}
+      - ${WIKI_SPORT}
     #networks:
      # - app-network
 
