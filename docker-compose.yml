@@ -1,10 +1,11 @@
 version: '3'
 services:
   #PHP Service
-  app:
+  wiki:
     image: requarks/wiki:2.5
     container_name: wikijs
     restart: unless-stopped
+    hostname: wiki
     #command: bash /scripts/init.sh
     #entrypoint: bash /scripts/init.sh
     tty: true
