@@ -1,7 +1,8 @@
 version: '3'
 services:
   #PHP Service
-  app:
+  wikifp:
+    hostname: wikifp
     image: requarks/wiki:2.5
     container_name: wikijs
     restart: unless-stopped
@@ -9,7 +10,6 @@ services:
     #entrypoint: bash /scripts/init.sh
     tty: true
     environment:
-      VIRTUAL_HOST: wikifp.org
       DB_TYPE : postgres
       DB_HOST : ${SQL_URL}
       DB_PORT : ${SQL_PORT}
