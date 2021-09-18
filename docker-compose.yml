@@ -20,20 +20,42 @@ services:
       - ${DOCKER_PATH}/init.sh:/scripts/init.sh
       - ${DATA_PATH}/data:/wiki/data
       - ${DATA_PATH}/config:/wiki/config
-#    ports:
-#      - 80:${WIKI_PORT}
-#      - 443:${WIKI_SPORT}
+    ports:
+      - ${DEBUG_PORT}:${WIKI_PORT}
+      - ${DEBUG_SPORT}:${WIKI_SPORT}
     expose:
       - ${WIKI_PORT}
       - ${WIKI_SPORT}
-    #networks:
-     # - app-network
+    networks:
+      - app-network
+      - ${ENV_NETWORK}
+  db:
+    image: postgres:13.4
+    restart: always
+    volumes:
+      - ${DATA_PATH}/db-data:/var/lib/postgresql/data
+      - ${DATA_PATH}/sql:/tmp/sql
+    environment:
+      POSTGRES_USER: ${SQL_USER}
+      POSTGRES_PASSWORD: ${SQL_PASS}
+      POSTGRES_DB: ${SQL_DB}
+    networks:
+      - app-network
 
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - app-network
 #Docker Networks
 networks:
-  default:
-      external:
-        name: nginx-proxy
-  #app-network:
-   # driver: bridge
+  test:
+    driver: bridge
+  prod:
+    external:
+      name: nginx-proxy
+  app-network:
+    driver: bridge
 
