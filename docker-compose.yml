@@ -4,7 +4,7 @@ services:
   wikifp:
     hostname: wikifp
     image: requarks/wiki:2.5
-    container_name: wikijs
+    container_name: server_${DOCKER_NAME}
     restart: unless-stopped
     #command: bash /scripts/init.sh
     #entrypoint: bash /scripts/init.sh
@@ -32,6 +32,7 @@ services:
   db:
     image: postgres:13.4
     restart: always
+    container_name: db_${DOCKER_NAME}
     volumes:
       - ${DATA_PATH}/db-data:/var/lib/postgresql/data
       - ${DATA_PATH}/sql:/tmp/sql
@@ -44,6 +45,7 @@ services:
 
   adminer:
     image: adminer
+    container_name: dbadmin_${DOCKER_NAME}
     restart: always
     ports:
       - 8080:8080
