@@ -16,10 +16,13 @@ services:
       DB_USER : ${SQL_USER}
       DB_PASS : ${SQL_PASS}
       DB_NAME : ${SQL_DB}
+      SSL_ACTIVE: ${SSL_ACTIVE}
+      LETSENCRYPT_DOMAIN: ${LETSENCRYPT_DOMAIN}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
     volumes:
       - ${DOCKER_PATH}/init.sh:/scripts/init.sh
       - ${DATA_PATH}/data:/wiki/data
-      - ${DATA_PATH}/config:/wiki/config
+      #- ./config/config.yml:/wiki/config.yml
     ports:
       - ${DEBUG_PORT}:${WIKI_PORT}
       - ${DEBUG_SPORT}:${WIKI_SPORT}
